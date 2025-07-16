@@ -9,6 +9,7 @@ import { recognizeMakeupProduct } from '@/ai/flows/recognize-makeup-product';
 export type { AnalyzeMakeupImageOutput } from '@/ai/flows/analyze-makeup-image';
 export type { RecognizeMakeupProductOutput } from '@/ai/flows/recognize-makeup-product';
 export type { IterateMakeupLookOutput } from '@/ai/flows/iterate-makeup-look';
+export type { EducationalExplanationsOutput } from '@/ai/flows/provide-educational-explanations';
 
 // Server action for analyzing a face image
 export async function analyzeFaceAction(photoDataUri: string) {
