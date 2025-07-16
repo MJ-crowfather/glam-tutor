@@ -9,7 +9,6 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import {searchYoutube} from '../tools/youtube-search';
 
 const EducationalExplanationsInputSchema = z.object({
   topic: z
@@ -32,7 +31,6 @@ const EducationalExplanationsOutputSchema = z.object({
     .describe(
       'A detailed explanation of the topic, including ingredient information, brand background, technique definitions, and tutorial suggestions.'
     ),
-  videoUrl: z.string().optional().describe('A relevant YouTube video URL.'),
 });
 export type EducationalExplanationsOutput = z.infer<
   typeof EducationalExplanationsOutputSchema
@@ -48,14 +46,12 @@ const prompt = ai.definePrompt({
   name: 'educationalExplanationsPrompt',
   input: {schema: EducationalExplanationsInputSchema},
   output: {schema: EducationalExplanationsOutputSchema},
-  tools: [searchYoutube],
   prompt: `You are a helpful assistant that provides educational explanations about makeup.
 
   Topic: {{{topic}}}
   Context: {{{context}}}
 
   Provide a detailed explanation of the topic, including ingredient information, brand background, technique definitions, and tutorial suggestions when relevant.
-  Use the searchYoutube tool to find a relevant tutorial video for the topic.
   Make sure to include the most important and relevant information to the user's needs, to help the user make informed choices.
   `,
 });

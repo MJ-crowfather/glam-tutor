@@ -3,18 +3,17 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, SheetFooter } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetFooter, SheetTrigger } from "@/components/ui/sheet";
 import { Bot, User, Send, Sparkles } from "lucide-react";
 import { getExplanationAction } from "@/app/(actions)/ai-actions";
 import { ScrollArea } from "../ui/scroll-area";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarFallback } from "../ui/avatar";
 import { cn } from "@/lib/utils";
 
 interface Message {
   id: number;
   role: "user" | "assistant";
   content: string;
-  videoUrl?: string;
 }
 
 export function ChatAssistant() {
@@ -35,13 +34,11 @@ export function ChatAssistant() {
     const result = await getExplanationAction(input);
     
     let assistantMessageContent = "Sorry, I had trouble finding an answer for that. Please try rephrasing your question.";
-    let videoUrl: string | undefined = undefined;
     if(result.success) {
       assistantMessageContent = result.data.explanation;
-      videoUrl = result.data.videoUrl;
     }
 
-    const assistantMessage: Message = { id: Date.now() + 1, role: "assistant", content: assistantMessageContent, videoUrl };
+    const assistantMessage: Message = { id: Date.now() + 1, role: "assistant", content: assistantMessageContent };
     setMessages((prev) => [...prev, assistantMessage]);
     setIsLoading(false);
   };
@@ -78,19 +75,6 @@ export function ChatAssistant() {
                   message.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted'
                 )}>
                   <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                  {message.videoUrl && (
-                    <div className="mt-4">
-                       <div className="aspect-video w-full">
-                         <iframe
-                           className="w-full h-full rounded-md"
-                           src={message.videoUrl}
-                           title={`YouTube video for ${message.content}`}
-                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                           allowFullScreen
-                         ></iframe>
-                       </div>
-                    </div>
-                  )}
                 </div>
                  {message.role === 'user' && (
                   <Avatar className="w-8 h-8">
