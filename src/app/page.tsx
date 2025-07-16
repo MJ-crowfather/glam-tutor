@@ -13,7 +13,7 @@ export default function Home() {
       <Header />
       <main className="flex-1 container mx-auto p-4 md:p-8">
         <Tabs defaultValue="face-analysis" className="w-full">
-          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-6 bg-primary/[0.08] rounded-lg p-1 h-auto">
+          <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 mb-6 bg-primary/[0.08] rounded-lg p-1 h-auto">
             <TabsTrigger value="face-analysis" className="py-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md flex-wrap justify-center"><ScanFace className="mr-2" /> AI Makeup Analysis</TabsTrigger>
             <TabsTrigger value="product-recognition" className="py-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md flex-wrap justify-center"><PackageSearch className="mr-2" /> AI Product Recognition</TabsTrigger>
             <TabsTrigger value="beginner-guide" className="py-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md flex-wrap justify-center"><GraduationCap className="mr-2" /> Beginner's Guide</TabsTrigger>
