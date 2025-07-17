@@ -10,8 +10,7 @@ import {
   analyzeProductAction,
   type AnalyzeProductOutput,
 } from "@/app/(actions)/ai-actions";
-import { UploadCloud, Sparkles, AlertTriangle, CheckCircle, Search, Building } from "lucide-react";
-import { Badge } from "../ui/badge";
+import { UploadCloud, Sparkles, AlertTriangle, CheckCircle, Search, Building, DollarSign, Replace } from "lucide-react";
 
 export function ProductAnalyzer() {
   const [file, setFile] = useState<File | null>(null);
@@ -67,6 +66,7 @@ export function ProductAnalyzer() {
                 <Skeleton className="h-32 w-full" />
             </div>
             <Skeleton className="h-24 w-full" />
+            <Skeleton className="h-24 w-full" />
           </CardContent>
         </Card>
       );
@@ -99,6 +99,16 @@ export function ProductAnalyzer() {
                   {result.cons.map((con, i) => <li key={i}>{con}</li>)}
                 </ul>
               </div>
+            </div>
+             <div>
+                <h3 className="font-bold text-lg mb-2 flex items-center gap-2 font-headline"><DollarSign />Pricing</h3>
+                <p className="text-muted-foreground">{result.pricing}</p>
+            </div>
+            <div>
+                <h3 className="font-bold text-lg mb-2 flex items-center gap-2 font-headline"><Replace />Alternatives</h3>
+                <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                  {result.alternatives.map((alt, i) => <li key={i}>{alt}</li>)}
+                </ul>
             </div>
              <div>
                 <h3 className="font-bold text-lg mb-2 flex items-center gap-2 font-headline"><Building />Company Analysis</h3>

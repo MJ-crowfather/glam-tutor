@@ -26,6 +26,8 @@ const AnalyzeProductOutputSchema = z.object({
   summary: z.string().describe('A brief, neutral summary of what the product is and what it does.'),
   pros: z.array(z.string()).describe('A list of potential positive aspects or benefits of the product.'),
   cons: z.array(z.string()).describe('A list of potential negative aspects or drawbacks of the product.'),
+  pricing: z.string().describe('The estimated price or price range of the product.'),
+  alternatives: z.array(z.string()).describe('A list of alternative products, including their names and a brief reason why they are an alternative.'),
   companyAnalysis: z.string().describe("An analysis of the manufacturing company, including information on public perception, ethical practices (like animal testing, labor practices), or any notable controversies or positive contributions. This should be a balanced overview based on publicly available information."),
 });
 export type AnalyzeProductOutput = z.infer<typeof AnalyzeProductOutputSchema>;
@@ -47,7 +49,9 @@ Based on the image, please provide the following information:
 2.  **Summary**: Briefly describe the product's primary function.
 3.  **Pros**: List a few key benefits or positive aspects.
 4.  **Cons**: List a few key drawbacks or negative aspects.
-5.  **Company Analysis**: Provide a comprehensive and neutral analysis of the manufacturing company. Research and include details about their reputation, any known ethical concerns (e.g., animal testing, environmental impact, labor practices), political ties if significant and public, or major positive contributions and initiatives. The goal is to give the user a well-rounded understanding of the company behind the product.
+5.  **Pricing**: Find the estimated price or price range for the product.
+6.  **Alternatives**: List 3-4 alternative products, each with a brief note on why it's a viable alternative.
+7.  **Company Analysis**: Provide a comprehensive and neutral analysis of the manufacturing company. Research and include details about their reputation, any known ethical concerns (e.g., animal testing, environmental impact, labor practices), political ties if significant and public, or major positive contributions and initiatives. The goal is to give the user a well-rounded understanding of the company behind the product.
 
 Image: {{media url=photoDataUri}}`,
 });
