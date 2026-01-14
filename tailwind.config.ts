@@ -17,9 +17,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        body: ['"Roboto"', 'sans-serif'],
-        headline: ['"Roboto Slab"', 'serif'],
-        code: ['monospace'],
+        body: ['"Fira Code"', 'monospace'],
+        headline: ['"Orbitron"', 'sans-serif'],
+        code: ['"Fira Code"', 'monospace'],
       },
       colors: {
         background: 'hsl(var(--background))',

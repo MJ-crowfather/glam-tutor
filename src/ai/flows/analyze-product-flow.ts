@@ -26,9 +26,18 @@ const AnalyzeProductOutputSchema = z.object({
   summary: z.string().describe('A brief, neutral summary of what the product is and what it does.'),
   pros: z.array(z.string()).describe('A list of potential positive aspects or benefits of the product.'),
   cons: z.array(z.string()).describe('A list of potential negative aspects or drawbacks of the product.'),
-  pricing: z.string().describe('The estimated price or price range of the product.'),
-  alternatives: z.array(z.string()).describe('A list of alternative products, including their names and a brief reason why they are an alternative.'),
+  pricing: z.object({
+    usd: z.string().optional().describe('The estimated price or price range of the product in USD.'),
+    inr: z.string().optional().describe('The estimated price or price range of the product in INR.'),
+    gbp: z.string().optional().describe('The estimated price or price range of the product in GBP.'),
+  }).describe('The estimated price of the product in multiple currencies.'),
+  alternatives: z.array(z.object({
+    name: z.string().describe('The name of the alternative product.'),
+    link: z.string().optional().describe('A URL link to the alternative product, if available.'),
+    reason: z.string().describe('A brief reason why this is a good alternative.'),
+  })).describe('A list of alternative products.'),
   companyAnalysis: z.string().describe("An analysis of the manufacturing company, including information on public perception, ethical practices (like animal testing, labor practices), or any notable controversies or positive contributions. This should be a balanced overview based on publicly available information."),
+  veganAnalysis: z.string().describe("A specific review of the product and company's stance on veganism. Check for animal-derived ingredients in the product and the company's animal testing policies. State whether it is 'Vegan-Friendly', 'Not Vegan', or 'Uncertain' and provide a reason."),
 });
 export type AnalyzeProductOutput = z.infer<typeof AnalyzeProductOutputSchema>;
 
@@ -49,9 +58,10 @@ Based on the image, please provide the following information:
 2.  **Summary**: Briefly describe the product's primary function.
 3.  **Pros**: List a few key benefits or positive aspects.
 4.  **Cons**: List a few key drawbacks or negative aspects.
-5.  **Pricing**: Find the estimated price or price range for the product.
-6.  **Alternatives**: List 3-4 alternative products, each with a brief note on why it's a viable alternative.
-7.  **Company Analysis**: Provide a comprehensive and neutral analysis of the manufacturing company. Research and include details about their reputation, any known ethical concerns (e.g., animal testing, environmental impact, labor practices), political ties if significant and public, or major positive contributions and initiatives. The goal is to give the user a well-rounded understanding of the company behind the product.
+5.  **Pricing**: Find the estimated price or price range for the product in USD, INR, and GBP. If a currency is not available, omit it.
+6.  **Alternatives**: List 3-4 alternative products. For each, provide its name, a reason why it's a viable alternative, and a direct URL link if you can find one.
+7.  **Company Analysis**: Provide a comprehensive and neutral analysis of the manufacturing company. Research and include details about their reputation, any known ethical concerns (e.g., environmental impact, labor practices), political ties if significant and public, or major positive contributions and initiatives.
+8.  **Vegan Analysis**: Specifically review the product for animal-derived ingredients and the company for its animal testing policies. Conclude if the product is vegan-friendly or not.
 
 Image: {{media url=photoDataUri}}`,
 });
